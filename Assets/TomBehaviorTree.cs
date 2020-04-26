@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TreeSharpPlus;
 
-public class MyBehaviorTree1 : MonoBehaviour
+public class TomBehaviorTree : MonoBehaviour
 {
 	public Transform wander1;
 	public Transform wander2;

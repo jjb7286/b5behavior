@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TreeSharpPlus;
 
-public class MyBehaviorTree2 : MonoBehaviour
+public class HarryBehaviorTree : MonoBehaviour
 {
 	public Transform wander1;
 	public Transform wander2;
@@ -30,6 +30,7 @@ public class MyBehaviorTree2 : MonoBehaviour
 	{
 		Val<Vector3> position = Val.V (() => target.position);
 		return new Sequence( participant.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(1000));
+        
 	}
 
 	protected Node BuildTreeRoot()
