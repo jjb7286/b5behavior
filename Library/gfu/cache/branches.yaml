@@ -13,19 +13,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 2
-  lastUpdatedAtString: 2020-04-22T12:31:09.138-04:00
-  initializedAtString: 2020-04-22T12:30:12.969-04:00
+  lastUpdatedAtString: 2020-04-27T00:44:45.663-04:00
+  initializedAtString: 2020-04-26T23:43:04.646-04:00
   localBranches:
   - name: JB
-    tracking: 
+    tracking: origin/JB
   - name: master
     tracking: origin/master
+  - name: WT
+    tracking: 
   remoteBranches:
   - name: origin/HEAD
     tracking: '[None]'
+  - name: origin/JB
+    tracking: '[None]'
   remotes:
   - name: origin
-    url: https://github.com/vr266/Assignment5_updatedb5-master.git
+    url: https://github.com/jjb7286/b5behavior.git
     login: 
     user: 
     host: 
@@ -35,33 +39,45 @@ MonoBehaviour:
     keys:
     - JB
     - master
+    - WT
     values:
     - name: JB
+      remote:
+        name: origin
+        url: https://github.com/jjb7286/b5behavior.git
+      trackingBranch: JB
+    - name: master
+      remote:
+        name: origin
+        url: https://github.com/jjb7286/b5behavior.git
+      trackingBranch: master
+    - name: WT
       remote:
         name: 
         url: 
       trackingBranch: 
-    - name: master
-      remote:
-        name: origin
-        url: https://github.com/vr266/Assignment5_updatedb5-master.git
-      trackingBranch: master
   remoteConfigBranches:
     keys:
     - origin
     subKeys:
     - Values:
       - HEAD
+      - JB
     subKeyValues:
     - Values:
       - name: HEAD
         remote:
           name: origin
-          url: https://github.com/vr266/Assignment5_updatedb5-master.git
+          url: https://github.com/jjb7286/b5behavior.git
+        trackingBranch: 
+      - name: JB
+        remote:
+          name: origin
+          url: https://github.com/jjb7286/b5behavior.git
         trackingBranch: 
   configRemotes:
     keys:
     - origin
     values:
     - name: origin
-      url: https://github.com/vr266/Assignment5_updatedb5-master.git
+      url: https://github.com/jjb7286/b5behavior.git

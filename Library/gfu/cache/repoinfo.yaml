@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2020-04-22T12:31:09.151-04:00
-  initializedAtString: 2020-04-22T12:30:04.962-04:00
+  lastUpdatedAtString: 2020-04-26T18:08:51.202-04:00
+  initializedAtString: 2020-04-26T18:08:51.202-04:00
   currentGitRemote:
     name: origin
-    url: https://github.com/vr266/Assignment5_updatedb5-master.git
+    url: https://github.com/jjb7286/b5behavior.git
     login: 
     user: 
     host: 
     function: 0
     token: 
   currentGitBranch:
-    name: master
-    tracking: origin/master
+    name: WT
+    tracking: 
   currentConfigBranch:
-    name: master
+    name: WT
     remote:
-      name: origin
-      url: https://github.com/vr266/Assignment5_updatedb5-master.git
-    trackingBranch: master
+      name: 
+      url: 
+    trackingBranch: 
   currentConfigRemote:
     name: origin
-    url: https://github.com/vr266/Assignment5_updatedb5-master.git
+    url: https://github.com/jjb7286/b5behavior.git
   currentHead: 
