@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using TreeSharpPlus;
+using RootMotion.FinalIK;
 
 
 public class BehaviorTree : MonoBehaviour
@@ -23,6 +24,10 @@ public class BehaviorTree : MonoBehaviour
     public GameObject tom;
     public bool meetup;
 
+    public FullBodyBipedEffector hand;
+    public GameObject cube;
+    public InteractionObject ikcube;
+
 
 
     private BehaviorAgent behaviorAgent;
@@ -34,7 +39,26 @@ public class BehaviorTree : MonoBehaviour
 		behaviorAgent.StartBehavior ();
 	}
 
+    protected Node PickUp(GameObject p)
+    {
+        return new Sequence(this.Node_BallStop(),
+                            p.GetComponent<BehaviorMecanim>().Node_StartInteraction(hand, ikcube),
+                            new LeafWait(1000),
+                            p.GetComponent<BehaviorMecanim>().Node_StopInteraction(hand));
+    }
 
+    public Node Node_BallStop()
+    {
+        return new LeafInvoke(() => this.BallStop());
+    }
+    public virtual RunStatus BallStop()
+    {
+        Rigidbody rb = cube.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+
+        return RunStatus.Success;
+    }
 
     // Update is called once per frame
     void Update ()
@@ -60,25 +84,20 @@ public class BehaviorTree : MonoBehaviour
             return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(500));
         }
 
-    //protected Node HarryFinds()
-    //{
-    //return new Sequence(
-    //harry.GetComponent<BehaviorMecanim>().Node_FaceAnimation("acknowledging",true));
-    //}
 
-    protected Node HarryOrient()
+    protected Node HarryOrient(Transform other)
     {
-        return new Sequence(harry.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+        return new Sequence(harry.GetComponent<BehaviorMecanim>().Node_OrientTowards(other.position), new LeafWait(1000));
     }
 
-    protected Node TomOrient()
+    protected Node TomOrient(Transform other)
     {
-        return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+        return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_OrientTowards(other.position), new LeafWait(1000));
     }
 
-    protected Node DanielOrient()
+    protected Node DanielOrient(Transform other)
     {
-        return new Sequence(daniel.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+        return new Sequence(daniel.GetComponent<BehaviorMecanim>().Node_OrientTowards(other.position), new LeafWait(1000));
     }
 
     protected Node BuildTreeRoot()
@@ -90,13 +109,19 @@ public class BehaviorTree : MonoBehaviour
                             new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielsfront), this.ST_ApproachAndWaitTom(this.tomsfront),
                             this.ST_ApproachAndWaitHarry(this.harrysfront)),
 
-                            // harry finds wrong package
-                            //this.HarryFinds(),
+                            this.PickUp(harry),
+
+                            // turn and wave
+                            new Sequence(this.DanielOrient(harry.transform),
+                                        this.HarryOrient(daniel.transform),
+                                        new SequenceParallel(daniel.GetComponent<BehaviorMecanim>().Node_BodyAnimation("sit_down_1", true)),
+                                        harry.GetComponent<BehaviorMecanim>().Node_BodyAnimation("sit_down_1", true)),
+
 
                             // all go to main building, order differing
-                            new SequenceShuffle(new Sequence(this.ST_ApproachAndWaitDaniel(this.mainbuildingD),this.DanielOrient()),
-                            new Sequence(this.ST_ApproachAndWaitHarry(this.mainbuildingH), this.HarryOrient()),
-                            new Sequence(this.ST_ApproachAndWaitTom(this.mainbuildingT), this.TomOrient())),
+                            new SequenceShuffle(new Sequence(this.ST_ApproachAndWaitDaniel(this.mainbuildingD),this.DanielOrient(intersection)),
+                            new Sequence(this.ST_ApproachAndWaitHarry(this.mainbuildingH), this.HarryOrient(intersection)),
+                            new Sequence(this.ST_ApproachAndWaitTom(this.mainbuildingT), this.TomOrient(intersection))),
 
                             // interact/converse here
 
