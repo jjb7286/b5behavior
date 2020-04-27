@@ -60,20 +60,45 @@ public class BehaviorTree : MonoBehaviour
             return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(500));
         }
 
+    //protected Node HarryFinds()
+    //{
+    //return new Sequence(
+    //harry.GetComponent<BehaviorMecanim>().Node_FaceAnimation("acknowledging",true));
+    //}
+
+    protected Node HarryOrient()
+    {
+        return new Sequence(harry.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+    }
+
+    protected Node TomOrient()
+    {
+        return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+    }
+
+    protected Node DanielOrient()
+    {
+        return new Sequence(daniel.GetComponent<BehaviorMecanim>().Node_OrientTowards(intersection.position), new LeafWait(1000));
+    }
+
     protected Node BuildTreeRoot()
 	{
         Node roaming = new DecoratorLoop(
                         new Sequence(
-                            
+
                             // all step outside
                             new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielsfront), this.ST_ApproachAndWaitTom(this.tomsfront),
                             this.ST_ApproachAndWaitHarry(this.harrysfront)),
 
-                            // all go to main building, order differing
-                            new SequenceShuffle(this.ST_ApproachAndWaitDaniel(this.mainbuildingD), this.ST_ApproachAndWaitHarry(this.mainbuildingH),
-                            this.ST_ApproachAndWaitTom(this.mainbuildingT)),
+                            // harry finds wrong package
+                            //this.HarryFinds(),
 
-                            // interaction here
+                            // all go to main building, order differing
+                            new SequenceShuffle(new Sequence(this.ST_ApproachAndWaitDaniel(this.mainbuildingD),this.DanielOrient()),
+                            new Sequence(this.ST_ApproachAndWaitHarry(this.mainbuildingH), this.HarryOrient()),
+                            new Sequence(this.ST_ApproachAndWaitTom(this.mainbuildingT), this.TomOrient())),
+
+                            // interact/converse here
 
                             // all go back to their houses
                             new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitTom(this.tomshouse),
