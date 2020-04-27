@@ -122,6 +122,25 @@ public class BehaviorTree : MonoBehaviour
         return new Sequence(daniel.GetComponent<BehaviorMecanim>().Node_OrientTowards(other.position), new LeafWait(1000));
     }
 
+    protected Node SwitchNode()
+    {
+        if (meetup)
+        {
+            return
+            // two go back to their houses
+            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitHarry(this.harryshouse),
+            // tom picks up cube and brings it home
+            new Sequence(this.ST_ApproachAndWaitTom(cube.transform), this.PickUp(tom), this.ST_ApproachAndWaitTom(this.tomshouse), this.PutDown(tom)));
+        } else
+        {
+            return
+            // two go back to their houses
+            new SequenceParallel(this.ST_ApproachAndWaitTom(this.tomshouse), this.ST_ApproachAndWaitHarry(this.harryshouse),
+            // daniel picks up cube and brings it home
+            new Sequence(this.ST_ApproachAndWaitDaniel(cube.transform), this.PickUp(daniel), this.ST_ApproachAndWaitDaniel(this.danielshouse), this.PutDown(daniel)));
+        }
+    }
+
     protected Node BuildTreeRoot()
 	{
         Node roaming = new DecoratorLoop(
@@ -148,13 +167,20 @@ public class BehaviorTree : MonoBehaviour
 
                             // harry puts down the green box
                             this.PutDown(harry),
+                            this.SwitchNode()));
 
                             // interact/converse here
 
-                            // two go back to their houses
-                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitHarry(this.harryshouse)),
+                            //new SequenceShuffle(
 
-                            new Sequence(this.ST_ApproachAndWaitTom(cube.transform), this.PickUp(tom), this.ST_ApproachAndWaitTom(this.tomshouse), this.PutDown(tom))));
+                                // two go back to their houses
+                               // new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitHarry(this.harryshouse),
+                               // new Sequence(this.ST_ApproachAndWaitTom(cube.transform), this.PickUp(tom), this.ST_ApproachAndWaitTom(this.tomshouse), this.PutDown(tom)))),
+
+                                // two go back to their houses
+                                //new SequenceParallel(this.ST_ApproachAndWaitTom(this.tomshouse), this.ST_ApproachAndWaitHarry(this.harryshouse),
+                                // daniel picks up cube and brings it home
+                                //new Sequence(this.ST_ApproachAndWaitDaniel(cube.transform), this.PickUp(daniel), this.ST_ApproachAndWaitDaniel(this.danielshouse), this.PutDown(daniel)))));
                             
 
 
