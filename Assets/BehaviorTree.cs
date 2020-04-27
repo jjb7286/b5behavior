@@ -41,22 +41,44 @@ public class BehaviorTree : MonoBehaviour
 
     protected Node PickUp(GameObject p)
     {
-        return new Sequence(this.Node_BallStop(),
+        return new Sequence(this.Node_CubeStop(),
                             p.GetComponent<BehaviorMecanim>().Node_StartInteraction(hand, ikcube),
                             new LeafWait(1000),
                             p.GetComponent<BehaviorMecanim>().Node_StopInteraction(hand));
     }
 
-    public Node Node_BallStop()
+    public Node Node_CubeStop()
     {
-        return new LeafInvoke(() => this.BallStop());
+        return new LeafInvoke(() => this.CubeStop());
     }
-    public virtual RunStatus BallStop()
+    public virtual RunStatus CubeStop()
     {
         Rigidbody rb = cube.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
 
+        return RunStatus.Success;
+    }
+
+    protected Node PutDown(GameObject p)
+    {
+        return new Sequence(p.GetComponent<BehaviorMecanim>().Node_StartInteraction(hand, ikcube),
+                            new LeafWait(300),
+                            this.Node_CubeMotion(),
+                            new LeafWait(500), p.GetComponent<BehaviorMecanim>().Node_StopInteraction(hand));
+    }
+
+    public Node Node_CubeMotion()
+    {
+        return new LeafInvoke(() => this.CubeMotion());
+    }
+
+    public virtual RunStatus CubeMotion()
+    {
+        Rigidbody rb = cube.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = false;
+        cube.transform.parent = null;
         return RunStatus.Success;
     }
 
@@ -109,6 +131,7 @@ public class BehaviorTree : MonoBehaviour
                             new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielsfront), this.ST_ApproachAndWaitTom(this.tomsfront),
                             this.ST_ApproachAndWaitHarry(this.harrysfront)),
 
+                            //harry picks up the green box
                             this.PickUp(harry),
 
                             // turn and wave
@@ -119,9 +142,12 @@ public class BehaviorTree : MonoBehaviour
 
 
                             // all go to main building, order differing
-                            new SequenceShuffle(new Sequence(this.ST_ApproachAndWaitDaniel(this.mainbuildingD),this.DanielOrient(intersection)),
+                            new SequenceShuffle(new Sequence(this.ST_ApproachAndWaitDaniel(this.mainbuildingD), this.DanielOrient(intersection)),
                             new Sequence(this.ST_ApproachAndWaitHarry(this.mainbuildingH), this.HarryOrient(intersection)),
                             new Sequence(this.ST_ApproachAndWaitTom(this.mainbuildingT), this.TomOrient(intersection))),
+
+                            // harry puts down the green box
+                            this.PutDown(harry),
 
                             // interact/converse here
 
