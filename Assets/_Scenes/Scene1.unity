@@ -613,6 +613,12 @@ Transform:
   m_Father: {fileID: 935449315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &133535734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 455514, guid: 933ad8229c2405e499b60c32a7f8b8a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 973579255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &142726348
 GameObject:
   m_ObjectHideFlags: 0
@@ -14446,8 +14452,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
   multipliers: []
-  otherLookAtTarget: {fileID: 0}
-  otherTargetsRoot: {fileID: 0}
+  otherLookAtTarget: {fileID: 133535734}
+  otherTargetsRoot: {fileID: 133535734}
   pickUpOnTrigger: 1
   pauseOnTrigger: 0
   triggerTime: 0.3

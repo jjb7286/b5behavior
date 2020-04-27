@@ -151,9 +151,11 @@ public class BehaviorTree : MonoBehaviour
 
                             // interact/converse here
 
-                            // all go back to their houses
-                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitTom(this.tomshouse),
-                            this.ST_ApproachAndWaitHarry(this.harryshouse))));
+                            // two go back to their houses
+                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitHarry(this.harryshouse)),
+
+                            new Sequence(this.ST_ApproachAndWaitTom(cube.transform), this.PickUp(tom), this.ST_ApproachAndWaitTom(this.tomshouse), this.PutDown(tom))));
+                            
 
 
                             
