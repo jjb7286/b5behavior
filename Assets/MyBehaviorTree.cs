@@ -55,6 +55,7 @@ public class BehaviorTree : MonoBehaviour
     protected Node ST_ApproachAndWaitHarry(Transform target)
     {
         Val<Vector3> position = Val.V(() => target.position);
+        textObject.text="Harry's heading out!";
         return new Sequence(harry.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(5));
     }
 
@@ -62,9 +63,10 @@ public class BehaviorTree : MonoBehaviour
         {
             
             Val<Vector3> position = Val.V(() => target.position);
-            if(tom.transform.position>13){
-            textObject.text="Tom's here!";
-            }
+            //if(tom.transform.position>13){
+            //textObject.text="Tom's here!";
+            //}
+            textObject.text="Tom's heading out!";
             return new Sequence(tom.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(5));
         }
     
