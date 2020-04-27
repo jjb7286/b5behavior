@@ -3,10 +3,13 @@ using System;
 using System.Collections;
 using TreeSharpPlus;
 
+
 public class BehaviorTree : MonoBehaviour
 {
 	public Transform intersection;
-	public Transform mainbuilding;
+	public Transform mainbuildingD;
+    public Transform mainbuildingT;
+    public Transform mainbuildingH;
 	public Transform topcorner;
     public Transform bottomcorner;
     public Transform danielsfront;
@@ -18,6 +21,8 @@ public class BehaviorTree : MonoBehaviour
     public GameObject daniel;
     public GameObject harry;
     public GameObject tom;
+    public bool meetup;
+
 
 
     private BehaviorAgent behaviorAgent;
@@ -28,9 +33,11 @@ public class BehaviorTree : MonoBehaviour
 		BehaviorManager.Instance.Register (behaviorAgent);
 		behaviorAgent.StartBehavior ();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+
+
+    // Update is called once per frame
+    void Update ()
 	{
 	
 	}
@@ -57,17 +64,23 @@ public class BehaviorTree : MonoBehaviour
 	{
         Node roaming = new DecoratorLoop(
                         new Sequence(
-                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielsfront),
-                            this.ST_ApproachAndWaitHarry(this.harrysfront), this.ST_ApproachAndWaitTom(this.tomsfront)),
+                            
+                            // all step outside
+                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielsfront), this.ST_ApproachAndWaitTom(this.tomsfront),
+                            this.ST_ApproachAndWaitHarry(this.harrysfront)),
 
-                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.mainbuilding),
-                            this.ST_ApproachAndWaitHarry(this.mainbuilding), this.ST_ApproachAndWaitTom(this.mainbuilding))));
+                            // all go to main building, order differing
+                            new SequenceShuffle(this.ST_ApproachAndWaitDaniel(this.mainbuildingD), this.ST_ApproachAndWaitHarry(this.mainbuildingH),
+                            this.ST_ApproachAndWaitTom(this.mainbuildingT)),
 
-                        //this.ST_ApproachAndWaitDaniel(this.bottomcorner),
-                        //this.ST_ApproachAndWaitHarry(this.intersection),
+                            // interaction here
+
+                            // all go back to their houses
+                            new SequenceParallel(this.ST_ApproachAndWaitDaniel(this.danielshouse), this.ST_ApproachAndWaitTom(this.tomshouse),
+                            this.ST_ApproachAndWaitHarry(this.harryshouse))));
 
 
-                        //this.ST_ApproachAndWaitTom(this.topcorner),
+                            
                        
         return roaming;
 	}

@@ -1823,7 +1823,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294410982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.7, y: 0, z: 1.64}
+  m_LocalPosition: {x: -16.85, y: 0, z: -0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 924911053}
@@ -2372,7 +2372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415928211}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.81, y: 1.26, z: -10.02}
+  m_LocalPosition: {x: 21.81, y: 1.26, z: -9.88}
   m_LocalScale: {x: 1, y: 1, z: 1.6}
   m_Children: []
   m_Father: {fileID: 652850632}
@@ -2477,7 +2477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 424611613}
   m_Layer: 0
-  m_Name: MainBuilding
+  m_Name: MainBuildingD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2491,7 +2491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424611612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.6, y: 0, z: 1.9}
+  m_LocalPosition: {x: 15.6, y: 0, z: 5.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 924911053}
@@ -8205,6 +8205,36 @@ Transform:
   m_Father: {fileID: 758470842}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &656260777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 656260778}
+  m_Layer: 0
+  m_Name: MainBuildingH
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &656260778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656260777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.6, y: 0, z: -2.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 924911053}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &674195693
 GameObject:
   m_ObjectHideFlags: 0
@@ -9290,6 +9320,8 @@ Transform:
   - {fileID: 294410983}
   - {fileID: 1973465445}
   - {fileID: 1012398420}
+  - {fileID: 1780042782}
+  - {fileID: 656260778}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11829,7 +11861,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intersection: {fileID: 417186428}
-  mainbuilding: {fileID: 424611613}
+  mainbuildingD: {fileID: 424611613}
+  mainbuildingT: {fileID: 1780042782}
+  mainbuildingH: {fileID: 656260778}
   topcorner: {fileID: 1930039801}
   bottomcorner: {fileID: 1189877298}
   danielsfront: {fileID: 85173868}
@@ -11841,6 +11875,7 @@ MonoBehaviour:
   daniel: {fileID: 973579256}
   harry: {fileID: 857168241038269152}
   tom: {fileID: 258355285}
+  meetup: 0
 --- !u!1 &1618127295
 GameObject:
   m_ObjectHideFlags: 0
@@ -12958,6 +12993,36 @@ Transform:
   - {fileID: 1943131496}
   m_Father: {fileID: 258355299}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1780042781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780042782}
+  m_Layer: 0
+  m_Name: MainBuildingT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1780042782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780042781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.22, y: 0, z: 2.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 924911053}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797332342
 GameObject:
